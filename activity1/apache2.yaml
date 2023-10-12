@@ -1,0 +1,10 @@
+---
+ - name: activity1
+   become: yes
+   hosts: all
+   tasks:
+     - name: apache2 installation
+       ansible.builtin.apt:
+         - name: apache2
+           state: present
+           update_cache: yes
