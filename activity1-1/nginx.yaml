@@ -1,0 +1,10 @@
+---
+ - name: activity1-1
+   become: yes
+   hosts: all
+   tasks:
+     - name: nginx installation
+       ansible.builtin.apt:
+         name: nginx
+         state: present
+         update_cache: yes
