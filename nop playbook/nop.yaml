@@ -47,19 +47,32 @@
      - name: unzip
        ansible.builtin.unarchive:
          src: /nop/nopCommerce_4.60.5_NoSource_linux_x64.zip
-         dest: /home/ubuntu
+         dest: /nop
          remote_src: yes
      - name: create directory
        ansible.builtin.file:
-         src: /bin        
+         src: /nop/bin        
          state: directory 
      - name: create directory
        ansible.builtin.file:
-         src: /logs
+         src: /nop/logs
          state: directory
      - name: run command nop.web.dll
-       shell: dotnet Nop.Web.dll --urls "http://0.0.0.0:5000"
+       command: /usr/bin/dotnet Nop.Web.dll --urls "http://0.0.0.0:5000"
        host: 0.0.0.0 
        port: 5000
+     - name: create service file 
+       ansible.builtin.file:
+         path: /etc/systemd/system/nopCommerce.service
+         state: touch
+     - name: copy service file
+       ansible.builtin.template:
+         src: nopcommerce.service.j2
+         dest: /etc/systemd/system/nopCommerce.service
+     - name: service file excution
+       ansible.builtin.service:
+         name: service 
+         state: started
+         enabled: yes 
 
 
