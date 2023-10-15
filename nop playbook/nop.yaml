@@ -9,6 +9,11 @@
         dest: /home/ubuntu
       notify: 
         - install the debian package
+   handlers:
+     - name: install debian package
+       ansible.builtin.dpkg_selections:
+         name: install debian packages
+         selections: install
     # - name: install package
     #   apt:
     #     deb: /tmp/packages-microsoft-prod.deb
