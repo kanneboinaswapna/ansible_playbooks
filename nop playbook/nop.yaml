@@ -49,3 +49,17 @@
          src: /nop/nopCommerce_4.60.5_NoSource_linux_x64.zip
          dest: /home/ubuntu
          remote_src: yes
+     - name: create directory
+       ansible.builtin.file:
+         src: /bin        
+         state: directory 
+     - name: create directory
+       ansible.builtin.file:
+         src: /logs
+         state: directory
+     - name: run command nop.web.dll
+       shell: dotnet Nop.Web.dll --urls "http://0.0.0.0:5000"
+       host: 0.0.0.0 
+       port: 5000
+
+
