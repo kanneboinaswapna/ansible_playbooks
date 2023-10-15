@@ -5,11 +5,13 @@
    tasks:
     - name: install dpkg packages
       get_url:  
-        url: https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb packages-microsoft-prod.deb
-        dest: /tmp/packages-microsoft-prod.deb
-    - name: install package
-      apt:
-        deb: /tmp/packages-microsoft-prod.deb
+        url: https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb 
+        dest: /home/ubuntu
+      notify: 
+        - install the debian package
+    # - name: install package
+    #   apt:
+    #     deb: /tmp/packages-microsoft-prod.deb
     - name: clean package
       ansible.builtin.file:
         path: /tmp/packages-microsoft-prod.deb
