@@ -17,10 +17,10 @@
     # - name: install package
     #   apt:
     #     deb: /tmp/packages-microsoft-prod.deb
-    - name: clean package
-      ansible.builtin.file:
-        path: /tmp/packages-microsoft-prod.deb
-        state: absent
+     - name: clean package
+       ansible.builtin.file:
+         path: /home/ubuntu
+         state: absent
     # - name: http action 
     #   ansible.builtin.apt:
     #     name: apt-transport-https
