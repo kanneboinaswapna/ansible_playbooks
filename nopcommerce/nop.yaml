@@ -1,6 +1,6 @@
 ---
 - name: install nopcommerce
-  hosts: node1
+  hosts: all
   become: yes
   vars: 
     info_page_path: /home/ubuntu
