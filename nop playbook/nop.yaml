@@ -1,11 +1,11 @@
 ---
  - name: install nopcommerce
    become : yes
-   hosts: 172.31.24.145
+   hosts: all
    tasks:
     - name: install dpkg packages
       get_url:  
-        url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+        url: https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
         dest: /tmp/packages-microsoft-prod.deb
     - name: install package
       apt:
