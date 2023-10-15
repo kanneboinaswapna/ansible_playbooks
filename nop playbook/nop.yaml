@@ -59,7 +59,6 @@
          state: directory
      - name: run command nop.web.dll
        command: /usr/bin/dotnet Nop.Web.dll --urls "http://0.0.0.0:5000"
-       host: 0.0.0.0 
        port: 5000
      - name: create service file 
        ansible.builtin.file:
