@@ -1,7 +1,7 @@
 ---
  - name: install nopcommerce
    become : yes
-   hosts: all
+   hosts: 172.31.24.145
    tasks:
     - name: install dpkg packages
       get_url:  
