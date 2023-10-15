@@ -17,7 +17,7 @@
         - install the debian package
     - name: install dotnet
       ansible.builtin.apt: 
-        name: "{{ dotnet_version}}"
+        name: dotnet-sdk-7.0
         update_cache: yes
         state: present
     - name: install unzip
