@@ -3,35 +3,36 @@
    become : yes
    hosts: all
    tasks:
-    - name: dpkg 
-      ansible.builtin.apt:
-        name: Install a Debian package using dpkg
-          - dpkg
-          - -i
-          - packages-microsoft-prod.deb
-        become: yes
-        update_cache: yes 
-    - name: http action
-      ansible.builtin.apt:
-        name: apt-transport-https
-        state: present
-        update_cache: yes
-        become: true
-    - name: Install .NET Core SDK
-      ansible.builtin.apt:
-        name: dotnet-sdk-7.0
-        state: present
-        update_cache: yes
-        become: true
-    - name: create directory
-      ansible.builtin.file:
-        src: /nop
-        state: directory
-    - name: change directory
-      command: cd /nop
-      become: yes
-    - name: install wget 
-      ansible.builtin.get_url:
-        url: https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.5/nopCommerce_4.60.5_NoSource_linux_x64.zip
-        dest: /nop/nopCommerce_4.60.5_NoSource_linux_x64.zip
-      
+    - name: install dpkg packages
+      get_url:  
+        url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+        dest: /tmp/packages-microsoft-prod.deb
+    - name: install package
+      apt:
+        deb: /tmp/packages-microsoft-prod.deb
+    # - name: http action 
+    #   ansible.builtin.apt:
+    #     name: apt-transport-https
+    #     state: present
+    #     update_cache: yes
+    #     become: true
+    # - name: Install .NET Core SDK
+    #   ansible.builtin.apt:
+    #     name: dotnet-sdk-7.0
+    #     state: present
+    #     update_cache: yes
+    #     become: true
+    # - name: create directory
+    #   ansible.builtin.file:
+    #     src: /nop
+    #     state: directory
+    # - name: change directory
+    #   command: cd /nop
+    #   become: yes
+    # - name: install wget 
+    #   ansible.builtin.get_url:
+    #     url: https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.5/nopCommerce_4.60.5_NoSource_linux_x64.zip
+    #     dest: /nop/nopCommerce_4.60.5_NoSource_linux_x64.zip
+    # - name: unzip
+    #   ansible.builtin.unarchive:
+    #     src: /nop
