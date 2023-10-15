@@ -1,0 +1,81 @@
+---
+- name: install nopcommerce
+  hosts: node1
+  become: yes
+  vars: 
+    info_page_path: /home/ubuntu
+  tasks:
+    - name: Print the gateway for each host when defined
+      ansible.builtin.debug:
+        msg: this playbook is designed for Ubntu only
+      when: ansible_facts['os_family'] == 'Ubuntu'
+    - name: copy url
+      ansible.builtin.get_url:
+        url: https://packages.microsoft.com/config/ubuntu/{{ os_version }}/packages-microsoft-prod.deb
+        dest: "{{ info_page_path }}"
+      notify:
+        - install the debian package
+    - name: install dotnet
+      ansible.builtin.apt: 
+        name: "{{ dotnet_version}}"
+        update_cache: yes
+        state: present
+    - name: install unzip
+      ansible.builtin.apt: 
+        name: unzip
+        update_cache: yes
+        state: present
+    - name: Create a directory nopcommerce
+      ansible.builtin.file:
+        path: /usr/share/nopCommerce
+        state: directory
+    - name: Download foo.conf
+      ansible.builtin.get_url:
+        url: https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.3/nopCommerce_4.60.3_NoSource_linux_x64.zip
+        dest: /usr/share/nopCommerce
+    - name: Unarchive a file that is already on the remote machine
+      ansible.builtin.unarchive:
+        src: /usr/share/nopCommerce/nopCommerce_4.60.3_NoSource_linux_x64.zip
+        dest: /usr/share/nopCommerce
+        remote_src: yes
+    - name: Create a directory bin 
+      ansible.builtin.file:
+        path: /usr/share/nopCommerce/bin
+        state: directory
+    - name: Create a directory logs
+      ansible.builtin.file:
+        path: /usr/share/nopCommerce/logs
+        state: directory
+    - name: Execute dotnet command
+      command: /usr/bin/dotnet Nop.Web.dll --urls "http://0.0.0.0:5000"
+      args:
+        chdir: /usr/share/nopCommerce
+    - name: Add the user nop
+      ansible.builtin.user:
+        name: nop
+        state: present
+    - name: Recursively change ownership of a directory
+      ansible.builtin.file:
+        path: /usr/share/nopCommerce
+        state: directory
+        recurse: yes
+        owner: nop
+        group: nop
+    - name: create a file nopcommerce.service
+      ansible.builtin.file:
+        path: /etc/systemd/system/nopCommerce.service
+        state: touch
+    - name: copy the service file
+      ansible.builtin.template:
+        src: nopcommerce.service.j2
+        dest: /etc/systemd/system/nopCommerce.service
+    - name: ensure nopcommerce.service is enable and runing
+      ansible.builtin.systemd:
+        name: nopCommerce.service
+        enabled: yes
+        state: started
+  handlers:
+    - name: install the debian package
+      ansible.builtin.dpkg_selections:
+        name: packages-microsoft-prod.deb
+        selection: install
