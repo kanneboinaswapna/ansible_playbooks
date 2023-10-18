@@ -1,0 +1,72 @@
+---
+ - name: tomcat playbook
+   hosts: all
+   become: yes
+   vars:
+     username: tomcat
+     group: tomcat
+     homedir: /opt/tomcat
+     shell: /bin/false
+     MAJOR_VERSION: 10
+     VERSION: 10.1.14
+   tasks:
+     - name: install java
+       ansible.builtin.apt:
+         name: "{{ openjdk-version-jdk }}"
+         update_cache: yes
+         state: present
+     - name: Add the user 'tomcat' with a false shell, appending the group 'admins' and 'developers' to the user's groups
+       ansible.builtin.user:
+         name: tomcat 
+         shell: /bin/false
+         groups: tomcat
+         append: yes
+     - name: Ensure group "tomcat" exists
+       ansible.builtin.group:
+         name: tomcat 
+         state: present
+     - name: download tomcat to /tmp 
+       url: https://dlcdn.apache.org/tomcat/tomcat-${MAJOR_VERSION}/v${VERSION}/bin/apache-tomcat-${VERSION}.tar.gz
+       dest: /tmp/apache-tomcat-${VERSION}.tar.gz
+     - name: extract tar file
+       ansible.builtin.unarchive:
+        src: /tmp/apache-tomcat-${VERSION}.tar.gz
+        dest: /opt/tomcat
+     - name: create a symlink
+       ansible.builtin.file:
+         src: /opt/tomcat/apache-tomcat-${VERSION}
+         dest: /opt/tomcat/latest
+         owner: "{{ username }}" 
+         group: "{{ group }}"     
+     - name: change ownership to /opt/tomcat
+       ansible.builtin.file:
+         path: /opt/tomcat
+         owner: "{{ username }}"
+         group: "{{ group }}"
+     - name: give excute permissions
+       ansible.builtin.file:
+         path: /opt/tomcat
+         recurse: yes
+         mode: '755'
+         state: directory
+         owner: "{{ username }}"
+         group: "{{ group }}"
+     - name: create a service file
+       ansible.builtin.service:
+         name: tomcat
+         state: enabled 
+     - name: start the service file
+       ansible.builtin.service:
+         name: tomcat
+         state: started
+     - name: restart the service file
+       ansible.builtin.service:
+         name: tomcat
+         state: restarted
+     
+
+
+
+
+        
+
