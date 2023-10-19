@@ -45,7 +45,7 @@
          src: /opt/tomcat/apache-tomcat-${VERSION}
          dest: /opt/tomcat/latest
          owner: "{{ username }}" 
-         group: "{{ group }}"     
+         group: "{{ groupname }}"     
      - name: change ownership to /opt/tomcat
        ansible.builtin.file:
          path: /opt/tomcat
