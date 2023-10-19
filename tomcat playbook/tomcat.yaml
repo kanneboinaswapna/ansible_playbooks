@@ -9,6 +9,7 @@
      shell: /bin/false
      MAJOR_VERSION: 10
      VERSION: 10.1.14
+     java_version: "11"
    tasks:
      - name: install jdk
        ansible.builtin.apt:
