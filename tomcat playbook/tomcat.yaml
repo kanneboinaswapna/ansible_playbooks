@@ -10,7 +10,7 @@
      MAJOR_VERSION: 10
      VERSION: 10.1.14
    tasks:
-     - name: install java
+     - name: install jdk
        ansible.builtin.apt:
          name: "{{ openjdk-version-jdk }}"
          update_cache: yes
