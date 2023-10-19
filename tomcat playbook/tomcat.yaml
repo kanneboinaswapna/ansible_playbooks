@@ -51,7 +51,7 @@
        ansible.builtin.file:
          path: /opt/tomcat
          owner: "{{ username }}"
-         group: "{{ group }}"
+         group: "{{ groupname }}"
      - name: give excute permissions
        ansible.builtin.file:
          path: "/opt/tomcat"
@@ -59,7 +59,7 @@
          mode: '755'
          state: directory
          owner: "{{ username }}"
-         group: "{{ group }}"
+         group: "{{ groupname }}"
      - name: create a service file
        ansible.builtin.service:
          name: tomcat
