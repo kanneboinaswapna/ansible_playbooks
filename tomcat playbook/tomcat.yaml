@@ -4,7 +4,7 @@
    become: yes
    vars:
      username: tomcat
-     group: tomcat
+     groupname: tomcat
      homedir: /opt/tomcat
      shell: /bin/false
      MAJOR_VERSION: 10
@@ -16,16 +16,16 @@
         name: "openjdk-{{ java_version }}-jdk"
         update_cache: yes
         state: present
-     - name: Add the user 'tomcat' with a false shell, appending the group 'admins' and 'developers' to the user's groups
-       ansible.builtin.user:
-         name: "{{ username }}"
-         shell: "{{ shell }}"
-         group: "{{ group }}"
-         append: yes
      - name: Ensure group "tomcat" exists
        ansible.builtin.group:
          name: tomcat 
          state: present
+     - name: Add the user 'tomcat' with a false shell, appending the group 'admins' and 'developers' to the user's groups
+       ansible.builtin.user:
+         name: "{{ username }}"
+         shell: "{{ shell }}"
+         group: "{{ groupname }}"
+         append: yes
      - name: download tomcat to /tmp 
        ansible.builtin.get_url:
          url: "https://dlcdn.apache.org/tomcat/tomcat-${MAJOR_VERSION}/v${VERSION}/bin/apache-tomcat-${VERSION}.tar.gz"
