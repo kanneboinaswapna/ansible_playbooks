@@ -31,7 +31,7 @@
          dest: "/tmp/apache-tomcat-${VERSION}.tar.gz"
      - name: extract tar file
        ansible.builtin.unarchive:
-        src: "/tmp/apache-tomcat-{{VERSION}}.tar.gz"
+        src: "https://dlcdn.apache.org/tomcat/tomcat-{{MAJOR_VERSION}}/v{{VERSION}}/bin/apache-tomcat-{{VERSION}}.tar.gz"
         creates: "{{ homedir }}/apache-tomcat-{{VERSION}}.tar.gz"
         copy: false 
         dest: "{{ homedir }}"
