@@ -55,7 +55,6 @@
      - name: give excute permissions
        ansible.builtin.file:
          path: "/opt/tomcat"
-         recurse: yes
          mode: '755'
          state: directory
          owner: "{{ username }}"
