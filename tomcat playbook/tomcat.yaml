@@ -32,8 +32,9 @@
          dest: "/tmp/apache-tomcat-${VERSION}.tar.gz"
      - name: extract tar file
        ansible.builtin.unarchive:
-        src: "/tmp/apache-tomcat-${VERSION}.tar.gz"
-        dest: /opt/tomcat
+        src: "/tmp/apache-tomcat-{{VERSION}}.tar.gz"
+        dest: "{{ homedir }}"
+        creates: "{{ homedir }}"/apache-tomcat-{{VERSION}}.tar.gz"
         remote_src: yes
      - name: create a symlink
        ansible.builtin.file:
