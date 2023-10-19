@@ -79,7 +79,16 @@
        ansible.builtin.service:
          name: tomcat
          state: restarted
-
+     - name: get all the shell files
+       ansible.builtin.command: sudo sh -c 'ls /opt/tomcat/latest/bin/*.sh'
+       register: shell_files
+     - name: print the value
+       ansible.builtin.debug:
+         var: shell_files
+     - name: print each file
+       ansible.builtin.debug:
+        msg: "{{ item }}"
+       loop: "{{ shell_files.stdout_lines }}"
      
 
 
