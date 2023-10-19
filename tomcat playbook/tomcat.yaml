@@ -18,9 +18,9 @@
         state: present
      - name: Add the user 'tomcat' with a false shell, appending the group 'admins' and 'developers' to the user's groups
        ansible.builtin.user:
-         name: tomcat 
-         shell: /bin/false
-         groups: tomcat
+         name: "{{ username }}"
+         shell: "{{ shell }}"
+         group: "{{ group }}"
          append: yes
      - name: Ensure group "tomcat" exists
        ansible.builtin.group:
