@@ -31,10 +31,10 @@
          dest: "/tmp/apache-tomcat-${VERSION}.tar.gz"
      - name: extract tar file
        ansible.builtin.unarchive:
-        src: "https://dlcdn.apache.org/tomcat/tomcat-{{MAJOR_VERSION}}/v{{VERSION}}/bin/apache-tomcat-{{VERSION}}.tar.gz"
+        src: "/tmp/apache-tomcat-${VERSION}.tar.gz"
         creates: "{{ homedir }}/apache-tomcat-{{VERSION}}.tar.gz"
         copy: false 
-        dest: "{{ homedir }}/latest"
+        dest: "{{ homedir }}"
         owner: "{{ username }}"
         group: "{{ groupname }}"
      - name: create a symlink
