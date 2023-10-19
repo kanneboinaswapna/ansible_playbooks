@@ -12,9 +12,9 @@
    tasks:
      - name: install jdk
        ansible.builtin.apt:
-         name: "{{ openjdk-version-jdk }}"
-         update_cache: yes
-         state: present
+        name: "openjdk-{{ java_version }}-jdk"
+        update_cache: yes
+        state: present
      - name: Add the user 'tomcat' with a false shell, appending the group 'admins' and 'developers' to the user's groups
        ansible.builtin.user:
          name: tomcat 
