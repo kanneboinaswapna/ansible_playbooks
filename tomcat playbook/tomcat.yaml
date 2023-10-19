@@ -42,7 +42,7 @@
         remote_src: yes
      - name: create a symlink
        ansible.builtin.file:
-         src: "/opt/tomcat/apache-tomcat-${{VERSION}}"
+         src: "/opt/tomcat"
          dest: "/opt/tomcat/latest"
          owner: "{{ username }}" 
          group: "{{ groupname }}"     
