@@ -28,7 +28,7 @@
      - name: download tomcat to /tmp 
        ansible.builtin.get_url:
          url: "https://dlcdn.apache.org/tomcat/tomcat-{{MAJOR_VERSION}}/v{{VERSION}}/bin/apache-tomcat-{{VERSION}}.tar.gz"
-         dest: "/tmp/apache-tomcat-${VERSION}.tar.gz"
+         dest: "/tmp"
      - name: extract tar file
        ansible.builtin.unarchive:
         src: "/tmp/apache-tomcat-${VERSION}.tar.gz"
