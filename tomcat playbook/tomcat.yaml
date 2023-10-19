@@ -34,6 +34,7 @@
        ansible.builtin.unarchive:
         src: "/tmp/apache-tomcat-${VERSION}.tar.gz"
         dest: /opt/tomcat
+        remote_src: yes
      - name: create a symlink
        ansible.builtin.file:
          src: /opt/tomcat/apache-tomcat-${VERSION}
