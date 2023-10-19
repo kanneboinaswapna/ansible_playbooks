@@ -62,8 +62,8 @@
      - name: create a service file
        ansible.builtin.service:
          name: tomcat
-         state: started
-    #  - name: s the service file
+         enabled: yes
+    #  - name: en the service file
     #    ansible.builtin.service:
     #      name: tomcat
     #      state: started
