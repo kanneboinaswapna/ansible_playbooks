@@ -1,5 +1,5 @@
 ---
- - name: tomcat playbook
+ - name: tomcat 10 install playbook
    hosts: all
    become: yes
    vars:
