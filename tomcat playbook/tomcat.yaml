@@ -34,7 +34,7 @@
         src: "https://dlcdn.apache.org/tomcat/tomcat-{{MAJOR_VERSION}}/v{{VERSION}}/bin/apache-tomcat-{{VERSION}}.tar.gz"
         creates: "{{ homedir }}/apache-tomcat-{{VERSION}}.tar.gz"
         copy: false 
-        dest: "{{ homedir }}"
+        dest: "{{ homedir }}/latest"
         owner: "{{ username }}"
         group: "{{ groupname }}"
      - name: create a symlink
