@@ -59,30 +59,26 @@
          state: directory
          owner: "{{ username }}"
          group: "{{ groupname }}"
-     - name: create a service file
+     - name: reload a service file
+       ansible.builtin.service:
+         name: tomcat
+         state: reloaded
+     - name: enable the service file
        ansible.builtin.service:
          name: tomcat
          enabled: yes
-    #  - name: en the service file
-    #    ansible.builtin.service:
-    #      name: tomcat
-    #      state: started
-    #  - name: reload the service file
-    #    ansible.builtin.service:
-    #      name: tomcat
-    #      state: reloaded
-    #  - name: enable the service
-    #    ansible.builtin.service:
-    #      name: tomcat
-    #      enabled: yes
-    #  - name: stop the service
-    #    ansible.builtin.service:
-    #      name: tomcat
-    #      state: stopped
-    #  - name: restrart the service 
-    #    ansible.builtin.service:
-    #      name: tomcat
-    #      state: restarted
+     - name: start the service
+       ansible.builtin.service:
+         name: tomcat
+         state: started
+     - name: stop the service
+       ansible.builtin.service:
+         name: tomcat
+         state: stopped
+     - name: restart the service 
+       ansible.builtin.service:
+         name: tomcat
+         state: restarted
 
      
 
