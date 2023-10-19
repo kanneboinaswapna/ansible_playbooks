@@ -62,27 +62,27 @@
      - name: create a service file
        ansible.builtin.service:
          name: tomcat
-         state: enabled 
-     - name: start the service file
-       ansible.builtin.service:
-         name: tomcat
          state: started
-     - name: reload the service file
-       ansible.builtin.service:
-         name: tomcat
-         state: reloaded
-     - name: enable the service
-       ansible.builtin.service:
-         name: tomcat
-         enabled: yes
-     - name: stop the service
-       ansible.builtin.service:
-         name: tomcat
-         state: stopped
-     - name: restrart the service 
-       ansible.builtin.service:
-         name: tomcat
-         state: restarted
+    #  - name: s the service file
+    #    ansible.builtin.service:
+    #      name: tomcat
+    #      state: started
+    #  - name: reload the service file
+    #    ansible.builtin.service:
+    #      name: tomcat
+    #      state: reloaded
+    #  - name: enable the service
+    #    ansible.builtin.service:
+    #      name: tomcat
+    #      enabled: yes
+    #  - name: stop the service
+    #    ansible.builtin.service:
+    #      name: tomcat
+    #      state: stopped
+    #  - name: restrart the service 
+    #    ansible.builtin.service:
+    #      name: tomcat
+    #      state: restarted
 
      
 
