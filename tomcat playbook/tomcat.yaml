@@ -26,7 +26,7 @@
          name: tomcat 
          state: present
      - name: download tomcat to /tmp 
-       url: https://dlcdn.apache.org/tomcat/tomcat-${MAJOR_VERSION}/v${VERSION}/bin/apache-tomcat-${VERSION}.tar.gz
+       url: "https://dlcdn.apache.org/tomcat/tomcat-${MAJOR_VERSION}/v${VERSION}/bin/apache-tomcat-${VERSION}.tar.gz"
        dest: /tmp/apache-tomcat-${VERSION}.tar.gz
      - name: extract tar file
        ansible.builtin.unarchive:
