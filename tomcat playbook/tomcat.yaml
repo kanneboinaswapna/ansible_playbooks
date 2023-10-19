@@ -46,6 +46,7 @@
          dest: "/opt/tomcat/latest"
          owner: "{{ username }}" 
          group: "{{ groupname }}"     
+         state: link
      - name: change ownership to /opt/tomcat
        ansible.builtin.file:
          path: /opt/tomcat
@@ -53,7 +54,7 @@
          group: "{{ group }}"
      - name: give excute permissions
        ansible.builtin.file:
-         path: /opt/tomcat
+         path: "/opt/tomcat"
          recurse: yes
          mode: '755'
          state: directory
