@@ -59,9 +59,9 @@
          state: directory
          owner: "{{ username }}"
          group: "{{ groupname }}"
-     - name: Template a file
+     - name: Template file
        ansible.builtin.template:
-         src: /home/swapna/tomcat playbook/service.j2
+         src: templates/service.j2
          dest: /etc/systemd/system/tomcat.service
          remote_src: yes
      - name: reload a service file
