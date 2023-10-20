@@ -1,6 +1,6 @@
 ---
  - name: tomcat 10 install playbook
-   hosts: 172.31.24.145
+   hosts: all
    become: yes
    vars:
      username: tomcat
@@ -59,11 +59,20 @@
          state: directory
          owner: "{{ username }}"
          group: "{{ groupname }}"
+     - name: get all the shell files
+       ansible.builtin.command: sudo sh -c 'ls /opt/tomcat/latest/bin/*.sh'
+       register: shell_files
+     - name: print the value
+       ansible.builtin.debug:
+         var: shell_files
+     - name: print each file
+       ansible.builtin.debug:
+        msg: "{{ item }}"
+       loop: "{{ shell_files.stdout_lines }}"
      - name: Template file
        ansible.builtin.template:
          src: templates/service.j2
          dest: /etc/systemd/system/tomcat.service
-         remote_src: yes
      - name: reload a service file
        ansible.builtin.service:
          name: tomcat
@@ -84,16 +93,7 @@
        ansible.builtin.service:
          name: tomcat
          state: restarted
-     - name: get all the shell files
-       ansible.builtin.command: sudo sh -c 'ls /opt/tomcat/latest/bin/*.sh'
-       register: shell_files
-     - name: print the value
-       ansible.builtin.debug:
-         var: shell_files
-     - name: print each file
-       ansible.builtin.debug:
-        msg: "{{ item }}"
-       loop: "{{ shell_files.stdout_lines }}"
+     
      
 
 
