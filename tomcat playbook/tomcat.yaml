@@ -35,6 +35,8 @@
          state: directory
      - name: extract tar file
        ansible.builtin.unarchive:
+        src: "/tmp/apache-tomcat-{{VERSION}}.tar.gz"
+        dest: "{{ homedir }}"
         owner: "{{ username }}"
         group: "{{ groupname }}"
         remote_src: yes
