@@ -1,6 +1,6 @@
 ---
  - name: tomcat 10 install playbook
-   hosts: all
+   hosts: 172.31.24.145
    become: yes
    vars:
      username: tomcat
