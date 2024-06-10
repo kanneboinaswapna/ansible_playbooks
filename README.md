@@ -15,7 +15,8 @@ in ansible inventory is a fundamental component that defines hosts (remote syste
 ### static inventory
 plain text fileand structired in INI or YAML format
 
-" " " inventory file: hosts
+" " "
+inventory file: hosts
 
 [webservers]
 web1.example.com
@@ -27,7 +28,8 @@ db2.example.com
 
 [all:vars]
 ansible_user=admin
-ansible_ssh_private_key_file=/path/to/key " " "
+ansible_ssh_private_key_file=/path/to/key
+" " "
 
 ### yaml
 inventory file: hosts.yaml
