@@ -1,4 +1,5 @@
 # Ansible intro:
+Ansible is python developed tool.
 It is a open-source automation configuration management tool,deploy applications,that can reduces the complexicity.
 
 By using ansible you can automate any tasks on virtually.It uses human readable scripts called playbooks to automate the tasks.
@@ -146,7 +147,58 @@ Tasks are individual actions within a play that use modules to perform operation
          remote_src: yes
 ```
 # Roles
-Collection of playbooks, that are reusable and shared tasks,these having specific directories includes with tasks,modules,playbooks,handlers...
+Collection of playbooks, that are reusable and shared tasks,these having specific directories includes with tasks,modules,playbooks,handlers...,It is manages complex playbooks easily.
+
+Roles allow you to break down your playbooks into reusable components
+
+Default roles directory: /etc/ansible/roles
+
+```
+my_role/
+├── defaults
+│   └── main.yml
+├── files
+│   └── example.conf
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── tasks
+│   └── main.yml
+├── templates
+│   └── example.j2
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+```
+### defaults: 
+contains default variables for the role.
+### files:
+having static files that can be deployed by the role.
+### handlers:
+contains handlers, which are tasks triggered by the other tasks
+### meta
+contains metadata about role such as author,licence...
+### tasks:
+Contains the main list of tasks to be executed by the role.
+### templates:
+Contains Jinja2 templates that can be used to dynamically generate configuration files.
+### vars:
+Contains variables that are more static and should override defaults.
+
+## creating role
+
+```
+ansible-galaxy init my_role {my_role -- role name}
+## using role in playbook
+---
+- name: Configure Web Servers
+  hosts: webservers
+  roles:
+    - my_role
+```
 
 # Handlers:
 handlers are specific tasks that are notified by other tasks, generally used for restart the services and perform whenever change has occured.
@@ -164,7 +216,119 @@ It is a piece of a code that expands ansible capabilities and makes high perform
 That having ansible content is distributed that contains playbooks,roles,modules,and plugins.
 
 Collection can intall through ansible galaxy.
-## Ansible Galaxy
 
+Default collection directory: ~/.ansible/collections
 
-   
+using collections
+```
+- hosts: all
+  tasks:
+    - name: Ensure latest version of Apache is installed
+      community.general.package:
+        name: httpd
+        state: latest
+```
+
+# Ansible Galaxy
+It is community focused site for sharing roles and collections.it is essential part of ansible eco-system.
+
+It is a community repository that have roles and collections.
+
+Roles are organizes the playbooks where as collections are have roles,modules,plugins,documentation...
+
+### working of galaxy
+
+ansible-galaxy install <role_name>
+ansible-galaxy collection  install <collection_name>
+```
+- hosts: webservers
+  roles:
+    - geerlingguy.apache
+```
+using collections
+```
+- hosts: all
+  tasks:
+    - name: Ensure latest version of Apache is installed
+      community.general.package:
+        name: httpd
+        state: latest
+```
+
+You can publish roles and collections to ansible-galaxy through github integration
+```ansible-galaxy role import <GitHub-username>/<repository-name>```
+
+```ansible-galaxy collection publish <path-to-collection-tarball>```
+
+## Uses of ansible galaxy
+Time saving,Best practices,community collabration
+
+# Ansible UI
+Ansible UI it is oftenly referred as AWX/ Redhat ansible tower,It is a web based user interface for ansible.
+
+These tools enhance the capabilities of Ansible by adding a graphical interface, centralized management, scheduling, RBAC, and other enterprise features, making it easier to deploy, manage, and monitor automation tasks across your infrastructure.
+
+## AWX
+It is a open source upstream project of redhat Ansible tower. It offers web based UI, REST API...
+
+### Features of AWX
+1.Dashboard: provides a status of recent job activity of system.
+
+2.Inventory management: Allows to manage hosts and groups
+
+3.Job template: Define playbooks, credentials, and other parameters for running Ansible jobs.
+
+4.Schedules: Schedule jobs to run at specific times.
+
+5.Credentials Management: Securely store and manage credentials for different systems.
+
+6.RBAC (Role-Based Access Control): Control who can see and do what within the AWX environment.
+
+7.Manage your playbook source code, which can be pulled from various SCMs (Source Control Management systems) like Git.
+
+## Redhat ansible tower:
+
+Ansible tower is a further version of AWX. It includes additional features like scalability, enhancements
+
+Enhanced security: more roboust security features and security policies.
+
+Logging and Auditing: having detailed logging and auditing capabilities to track changes 
+
+Notifications: having notification services (email,slack)
+
+Analytics: Advanced analytics and reporting capabilities.
+
+Support: Enterprise grade support from Redhat
+
+## Getting started with AWX/ Tower
+
+1.Install aws/Ansible tower based on env(docker,k8s...)
+
+2.Set up Inventory includinh hosts and groups
+
+3.create projects: link your playbooks repository to a project in AWX/Tower
+
+4.Create a job template to specify a playbbok to run and the parametrs to use.
+
+5.Add credentials to securely accessing
+
+6.Excute jobs manually or ajtomatically
+
+7.use dash bpard , job views, and logs to monitor and manage your automation tasks.
+
+```
+What are the features of the Ansible Tower?
+Features of the Ansible Tower are:
+
+Ansible Dashboard
+Real-time job status updates
+Multi-playbook workflows
+Who Ran What Job When
+Scale capacity with tower clusters
+Integrated notifications
+Schedule ansible jobs
+Manage and track inventory
+Remote command execution
+REST API & Tower CLI Tool.
+```
+
