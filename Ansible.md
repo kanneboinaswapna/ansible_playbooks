@@ -81,9 +81,66 @@ redhat:
 Playbook is a Yaml file, that can be series of tasks that are excute on remote systems.
 It is order of operations top to bottom overall a goal
 
-## Tasks
-single module operation in ansible
+
 ## Module
+modules are nothing but a commands , these are building blocks of ansible tasks.They are small programmes that are performed on worker nodes, such as installing, updating, package, copying files...
+
+apt module is used to install a package
+```
+- name: Install Nginx
+   ansible.builtin.apt:
+    name: nginx
+    state: present
+```
+### TASKS
+Tasks are individual actions within a play that use modules to perform operations on worker nodes. Each task is excuted in order and include conditionals, loops, handlers.
+```
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+- name: Start Nginx service
+  service:
+    name: nginx
+    state: started
+```
+
+## Example playbbok
+```
+---
+ - name: activity1
+   become: yes
+   hosts: all
+   tasks:
+     - name: apache2 installation
+       ansible.builtin.apt:
+         name: apache2
+         state: present
+         update_cache: yes
+```
+```
+---
+ - name: activity2
+   become: yes
+   hosts: all
+   tasks:
+     - name: php installation on apache2
+       ansible.builtin.apt:
+         name: 
+           - apache2
+           - php 
+           - libapache2-mod-php 
+           - php-mysql
+         state: present
+         update_cache: yes
+     - name: copy php file
+       ansible.builtin.copy:
+         content: '<?php phpinfo(); ?>'
+         dest: /var/www/html/info.php
+         remote_src: yes
+```
+
 
 
    
