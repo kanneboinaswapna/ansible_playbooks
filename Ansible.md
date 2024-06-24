@@ -25,9 +25,7 @@ If you have larger playbook, it doesnot make any un-neccessary changes even you 
 
 # SETUP
 ```
-pip install ansible```
-or 
-```
+pip install ansible
 2 machines(ansible node,worker node)
 sudo apt update && sudo apt install Python 3
 install ansible on control node-- Sudo apt install ansible -y
@@ -40,7 +38,8 @@ install ansible on control node-- Sudo apt install ansible -y
 7.ssh-copy-id username@IP
 create folder---mkdir ansible, cd ansible
 make inventory file--inventory.yml or inventory.ini
-make playbook.yaml```
+make playbook.yaml
+```
 
 ## Building inventory
 ```
@@ -49,7 +48,8 @@ make playbook.yaml```
 192.0.2.51
 192.0.2.52
 ```
-check-- ansible hosts -m ping -i <inventory file name>
+check-- ansible -m ping -i <inventoryfilename> all
+
 ```
 myhosts:
   hosts:
@@ -59,6 +59,7 @@ myhosts:
       ansible_host: 192.0.2.51
     my_host_03:
       ansible_host: 192.0.2.52
+```
 ```
 ---
 locals
@@ -75,7 +76,8 @@ ubuntu:
 redhat:
   hosts:
     x.x.x.x:
-    x.x.x.x:```
+    x.x.x.x:
+```
 
 # Creating playbook
 Playbook is a Yaml file, that can be series of tasks that are excute on remote systems.
