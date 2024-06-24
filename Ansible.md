@@ -24,6 +24,8 @@ It can easily scales the systems through larger range of OS,Colud platforms, and
 If you have larger playbook, it doesnot make any un-neccessary changes even you can playbook multiple times.
 
 # SETUP
+Control node: where ansible install
+Managed nodes: where all excutions are works, these are target devices
 ```
 pip install ansible
 2 machines(ansible node,worker node)
@@ -42,6 +44,7 @@ make playbook.yaml
 ```
 
 ## Building inventory
+inventory is a list of managed nodes,that have information about each node like IP,DNS.Sometimes an inventory source file is also referred to as a ‘hostfile’.
 ```
 [hosts]
 192.0.2.50
@@ -142,7 +145,26 @@ Tasks are individual actions within a play that use modules to perform operation
          dest: /var/www/html/info.php
          remote_src: yes
 ```
+# Roles
+Collection of playbooks, that are reusable and shared tasks,these having specific directories includes with tasks,modules,playbooks,handlers...
 
+# Handlers:
+handlers are specific tasks that are notified by other tasks, generally used for restart the services and perform whenever change has occured.
+```
+handlers:
+ -name:my-task
+   service:
+     name:my-service
+     start: restarted
+```
+## Plugins
+It is a piece of a code that expands ansible capabilities and makes high performace.
+
+## Collections
+That having ansible content is distributed that contains playbooks,roles,modules,and plugins.
+
+Collection can intall through ansible galaxy.
+## Ansible Galaxy
 
 
    
