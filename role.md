@@ -3,6 +3,7 @@
 ## identify playbook sections
 such as tasks,handlers,variables,templates,files...
 ## create role directory structure
+```
 roles/
 └── your_role/
     ├── tasks/
@@ -18,6 +19,7 @@ roles/
     ├── meta/
     │   └── main.yml
     └── README.md
+```
 ## move playbook sections to role
 ```
 Tasks: Move your tasks to roles/your_role/tasks/main.yml.
