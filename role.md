@@ -51,4 +51,17 @@ Meta: Define role dependencies and other metadata in roles/your_role/meta/main.y
         state: restarted
 ```
 
+## Example modules
+
+pt, yum - package managers
+service: manges service system like stopo , start, restart
+
+user: 
+
+files: copy, unarchive, line in file
+
+network: uri, firewalld, iptables, docker container, git
+
+
+
 
